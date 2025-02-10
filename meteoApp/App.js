@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 // Utilizziamo JsonPlaceHolder come mock API
 const getMockWeatherData = (city) =>{
@@ -48,14 +48,39 @@ const fetchWeatherData = async () =>{
 
 };
 
-const 
-
+const WeatherInfo = ({data}) => {
+  return (
+  <View style={styles.weatherContainer}>
+    <Text style={styles.cityName}>{city}</Text>
+    <Text style={styles.temperature}>{data.temp} C°</Text>
+    <Text style={styles.description}>{data.condictions}</Text>
+    <View style={styles.detailsContainer}>
+      <Text style={styles.details}> Umidità: {data.Humidity} %</Text>
+      <Text style={styles.details}> Vento: {data.windSpeed} km/h</Text>
+    </View>
+  </View>
+  );
+};
 
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Previsioni meteo</Text>
+
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.input} placeholder='insert a city' value={city} onChangeText={setcity}></TextInput>
+        <TouchableOpacity style ={styles.button} onPress={fetchWeatherData} disabled={loading}>
+          <Text style={styles.buttonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
+
+      {loading && (<ActivityIndicator size={'large'} color={"#0000ff"}></ActivityIndicator>)}
+
+      {!loading && weatherData && (<WeatherInfo data={weatherData}></WeatherInfo>)}
+
+      {error && (
+        <Text style = {styles.error}> {error}</Text>
+      )}
     </View>
   );
 }
