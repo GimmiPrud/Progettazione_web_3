@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
+import { Image } from 'expo-image';
 
 const { width, height } = Dimensions.get('window');
 
 function App () {
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(60);
   const [position, setPosition] = useState({
     top: Math.random() * (height - 100),
     left: Math.random() * (width - 100),
@@ -61,6 +62,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     position: 'absolute',
   },
+  imagess: {
+    width: 320
+  }
 });
 
 export default App;
