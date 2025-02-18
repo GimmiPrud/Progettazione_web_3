@@ -10,6 +10,7 @@ import { SettingsScreen } from './screens/SettingsScreen';
 import { ProductDetailsScreen } from './screens/ProductDetailsScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native-web';
+import { StyleSheet } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
