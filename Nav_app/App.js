@@ -4,13 +4,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from './screens/HomeScreen';
-import { ProfileScreen } from './screens/ProfileScreen';
-import { SettingsScreen } from './screens/SettingsScreen';
-import { ProductDetailsScreen } from './screens/ProductDetailsScreen';
+import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import SettingsScreen  from './screens/SettingsScreen';
+import ProductDetailsScreen from './screens/ProductDetailsScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native-web';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
