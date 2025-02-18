@@ -61,7 +61,7 @@ function TabNavigator() {
       </NavigationContainer>
     </View>
   );
-}
+};
 
 // styles.js
 const styles = StyleSheet.create({
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: '#666',
-  },
+  }
 });
 
 export default App;
