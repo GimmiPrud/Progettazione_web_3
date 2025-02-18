@@ -9,6 +9,7 @@ import { ProfileScreen } from './screens/ProfileScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
 import { ProductDetailsScreen } from './screens/ProductDetailsScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { View } from 'react-native-web';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,25 +44,24 @@ function TabNavigator() {
 
  function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-          name="MainTabs" 
-          component={TabNavigator} 
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen 
-          name="ProductDetails" 
-          component={ProductDetailsScreen} 
-          options={{ title: 'Dettagli Prodotto' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen 
+            name="MainTabs" 
+            component={TabNavigator} 
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+            name="ProductDetails" 
+            component={ProductDetailsScreen} 
+            options={{ title: 'Dettagli Prodotto' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
   );
 }
-export default App;
-
-
 
 // styles.js
 const styles = StyleSheet.create({
@@ -123,3 +123,5 @@ const styles = StyleSheet.create({
     color: '#666',
   },
 });
+
+export default App;
