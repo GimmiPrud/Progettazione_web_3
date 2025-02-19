@@ -33,8 +33,6 @@ const App = () => {
   );
 };
 
-export default App;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -93,3 +91,5 @@ const styles = StyleSheet.create({
     color: '#666',
   },
 });
+
+export default App;
