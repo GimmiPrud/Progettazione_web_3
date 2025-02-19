@@ -1,116 +1,224 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 
-// Componente per visualizzare gli errori
-const ErrorDisplay = ({ errors }) => {
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen';
+import RegistrationScreen from './screens/RegistrationScreen';
+import SuccessScreen from './screens/SuccessScreen';
+
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View>
-      {Object.keys(errors).map((key) => (
-        <Text key={key} style={styles.errorText}>
-          {errors[key]}
-        </Text>
-      ))}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ title: 'Home' }}
+        />
+        <Stack.Screen 
+          name="Registration" 
+          component={RegistrationScreen} 
+          options={{ title: 'Registrazione' }}
+        />
+        <Stack.Screen 
+          name="Success" 
+          component={SuccessScreen} 
+          options={{ title: 'Registrazione Completata' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
+
+// screens/HomeScreen.js
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+const HomeScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Benvenuto nell'App</Text>
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => navigation.navigate('Registration')}
+      >
+        <Text style={styles.buttonText}>Vai alla Registrazione</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-// Componente Form
-const FormComponent = ({ onSubmit }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+// screens/RegistrationScreen.js
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+
+const RegistrationScreen = ({ navigation }) => {
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefono: '',
+    password: '',
+  });
+
+  const [errors, setErrors] = useState({
+    nome: '',
+    email: '',
+    telefono: '',
+    password: '',
+  });
 
   const validateForm = () => {
-    let errors = {};
+    let isValid = true;
+    const newErrors = {};
+
+    // Validazione nome
+    if (!formData.nome.trim()) {
+      newErrors.nome = 'Il nome è obbligatorio';
+      isValid = false;
+    } else if (formData.nome.length < 2) {
+      newErrors.nome = 'Il nome deve essere di almeno 2 caratteri';
+      isValid = false;
+    }
 
     // Validazione email
-    if (!email) {
-      errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = 'Email is invalid';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "L'email è obbligatoria";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Inserisci un indirizzo email valido';
+      isValid = false;
+    }
+
+    // Validazione telefono
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!formData.telefono.trim()) {
+      newErrors.telefono = 'Il telefono è obbligatorio';
+      isValid = false;
+    } else if (!phoneRegex.test(formData.telefono)) {
+      newErrors.telefono = 'Inserisci un numero di telefono valido (10 cifre)';
+      isValid = false;
     }
 
     // Validazione password
-    if (!password) {
-      errors.password = 'Password is required';
-    } else if (password.length < 6) {
-      errors.password = 'Password must be at least 6 characters';
+    if (!formData.password) {
+      newErrors.password = 'La password è obbligatoria';
+      isValid = false;
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'La password deve essere di almeno 6 caratteri';
+      isValid = false;
     }
 
-    setErrors(errors);
-
-    // Se non ci sono errori, il form Ã¨ valido
-    return Object.keys(errors).length === 0;
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = () => {
     if (validateForm()) {
-      onSubmit({ email, password }); // Passa i dati del form al componente genitore
+      navigation.navigate('Success');
     }
   };
 
   return (
-    <View style={styles.formContainer}>
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-
-      {/* Mostra gli errori */}
-      <ErrorDisplay errors={errors} />
-
-      <Button title="Submit" onPress={handleSubmit} />
-    </View>
-  );
-};
-
-// Componente principale
-const App = () => {
-  const [submittedData, setSubmittedData] = useState(null);
-
-  const handleFormSubmit = (data) => {
-    setSubmittedData(data); // Salva i dati inviati
-  };
-
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Form with Validation</Text>
-
-      {/* Form */}
-      <FormComponent onSubmit={handleFormSubmit} />
-
-      {/* Mostra i dati inviati */}
-      {submittedData && (
-        <View style={styles.submittedDataContainer}>
-          <Text style={styles.submittedDataText}>Submitted Data:</Text>
-          <Text>Email: {submittedData.email}</Text>
-          <Text>Password: {submittedData.password}</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.formContainer}>
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Nome</Text>
+          <TextInput
+            style={[styles.input, errors.nome && styles.inputError]}
+            value={formData.nome}
+            onChangeText={(text) => setFormData({ ...formData, nome: text })}
+            placeholder="Inserisci il tuo nome"
+          />
+          {errors.nome && <Text style={styles.errorText}>{errors.nome}</Text>}
         </View>
-      )}
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={[styles.input, errors.email && styles.inputError]}
+            value={formData.email}
+            onChangeText={(text) => setFormData({ ...formData, email: text })}
+            placeholder="Inserisci la tua email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Telefono</Text>
+          <TextInput
+            style={[styles.input, errors.telefono && styles.inputError]}
+            value={formData.telefono}
+            onChangeText={(text) => setFormData({ ...formData, telefono: text })}
+            placeholder="Inserisci il tuo numero di telefono"
+            keyboardType="phone-pad"
+          />
+          {errors.telefono && <Text style={styles.errorText}>{errors.telefono}</Text>}
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={[styles.input, errors.password && styles.inputError]}
+            value={formData.password}
+            onChangeText={(text) => setFormData({ ...formData, password: text })}
+            placeholder="Inserisci la tua password"
+            secureTextEntry
+          />
+          {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Registrati</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
 
-// Stili
+// screens/SuccessScreen.js
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+const SuccessScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Registrazione Completata!</Text>
+      <Text style={styles.message}>
+        La tua registrazione è stata completata con successo.
+      </Text>
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => navigation.navigate('Home')}
+      >
+        <Text style={styles.buttonText}>Torna alla Home</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
+    backgroundColor: '#fff',
     padding: 20,
-    justifyContent: 'center',
+  },
+  formContainer: {
+    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -118,37 +226,45 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  formContainer: {
+  inputGroup: {
     marginBottom: 20,
   },
   label: {
     fontSize: 16,
     marginBottom: 5,
+    color: '#333',
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    borderRadius: 5,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+  },
+  inputError: {
+    borderColor: '#ff6b6b',
   },
   errorText: {
-    color: 'red',
-    marginBottom: 10,
+    color: '#ff6b6b',
+    fontSize: 14,
+    marginTop: 5,
   },
-  submittedDataContainer: {
+  button: {
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    borderRadius: 8,
     marginTop: 20,
-    padding: 10,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
   },
-  submittedDataText: {
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
+  },
+  message: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#666',
   },
 });
-
-export default App;
