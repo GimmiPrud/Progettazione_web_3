@@ -4,8 +4,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Appearance } from 'react-native'; // per scegliere il tema scuro o chiaro
-
 import { Colors } from '@/constants/Colors';
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

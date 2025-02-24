@@ -1,11 +1,12 @@
 
 import { View, Text, StyleSheet, ImageBackground, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import milan from '@/assets/images/milan.jpg'
-import { Link } from 'expo-router'
+import { Link, Stack } from 'expo-router'
 
 
 const App = () => {
+  
   return (
     <View style={styles.container}>
       <ImageBackground source={milan} style={styles.image}>
@@ -27,7 +28,6 @@ const App = () => {
         <Text style={styles.buttonText}>Gadget</Text>
       </Pressable>
       </Link>
-
       </ImageBackground>
     </View>
   )
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     width: 300,
+    margin:10
   },
   buttonText: {
     color: 'red',

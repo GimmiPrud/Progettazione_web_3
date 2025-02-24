@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image, Platform, ImageBackground, View, Text, FlatList } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -6,105 +6,103 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import milan_2 from '@/assets/images/milan_2.webp'
+import axios from "axios";
+import { useState, useEffect } from 'react';
 
-export default function TabTwoScreen() {
+const Magliette = () => {
+  const [magliette, setMagliette] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8080/magliette')
+      .then(response => {
+        setMagliette(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <Text>Loading...</Text>;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
-  );
-}
+    <View style={styles.container}>
+    {/* Intestazione della tabella */}
+    <View style={styles.headerRow}>
+      <Text style={[styles.headerText, styles.nomeColumn]}>Giocatore</Text>
+      <Text style={[styles.headerText, styles.numeroColumn]}>Numero</Text>
+      <Text style={[styles.headerText, styles.annoColumn]}>Anno</Text>
+    </View>
+  
+    {/* Corpo della tabella */}
+    <FlatList
+      data={magliette}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <View style={styles.dataRow}>
+          <Text style={[styles.dataText, styles.nomeColumn]}>{item.nome} {item.cognome}</Text>
+          <Text style={[styles.dataText, styles.numeroColumn]}>{item.numero_maglia}</Text>
+          <Text style={[styles.dataText, styles.annoColumn]}>{item.anno_utilizzo}</Text>
+        </View>
+      )}
+    />
+  </View>
+);
+};
+export default Magliette
 
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    margin: 0,
+    backgroundColor:"#960018",
+    borderRadius:20,
   },
-  titleContainer: {
+  headerRow: {
     flexDirection: 'row',
-    gap: 8,
+    backgroundColor: '#f2f2f2',
+    paddingVertical: 30,
+    borderBottomWidth: 4,
+    borderBottomColor: 'black',
+    borderRadius:50,
+    backgroundColor:"#960018",
+  },
+  dataRow: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    backgroundColor:"black",
+    borderRadius:50,
+    margin: 10
+  },
+  headerText: {
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    fontSize:"medium"
+
+  },
+  dataText: {
+    color: 'black',
+    textAlign: 'center',
+    fontWeight:"bold",
+    fontSize:"medium"
+  },
+  nomeColumn: {
+    flex: 0.5, // 50% dello spazio
+    paddingHorizontal: 8,
+  },
+  numeroColumn: {
+    flex: 0.25, // 25% dello spazio
+    paddingHorizontal: 8,
+  },
+  annoColumn: {
+    flex: 0.25, // 25% dello spazio
+    paddingHorizontal: 8,
   },
 });
