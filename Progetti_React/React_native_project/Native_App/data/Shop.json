@@ -108,37 +108,37 @@
         "id": 1,
         "tipo": "Sciarpa",
         "nome": "Sciarpa Anniversary 1899-2024",
-        "descrizione": "Sciarpa in lana commemorativa 125° anniversario"
+        "costo": "35$"
         },
         {
         "id": 2,
         "tipo": "Orologio",
         "nome": "Timex x AC Milan Collab",
-        "descrizione": "Orologio da polso digitale retro con logo vintage"
+        "costo":"75$"
         },
         {
         "id": 3,
         "tipo": "Borsa",
         "nome": "Puma Milano Weekender",
-        "descrizione": "Borsa da viaggio edizione speciale per tifosi"
+        "costo": "40$"
         },
         {
         "id": 4,
         "tipo": "Portachiavi",
         "nome": "Chiave dello Stadio",
-        "descrizione": "Portachiavi metallico a forma di chiave vintage San Siro"
+        "costo": "5$"
         },
         {
         "id": 5,
         "tipo": "Cuffie",
         "nome": "Beats by Dre Milano Edition",
-        "descrizione": "Cuffie over-ear con stemma ricamato"
+        "costo": "50$"
         },
         {
         "id": 6,
         "tipo": "Tazza",
         "nome": "Mug dei Campioni '94",
-        "descrizione": "Tazza commemorativa tripletta 1993-94"
+        "costo": "15$"
         }
     ]
 }

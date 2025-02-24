@@ -1,12 +1,5 @@
 import { StyleSheet, Image, Platform, ImageBackground, View, Text, FlatList } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import milan_2 from '@/assets/images/milan_2.webp'
 import axios from "axios";
 import { useState, useEffect } from 'react';
 
@@ -30,14 +23,13 @@ const Magliette = () => {
 
   return (
     <View style={styles.container}>
-    {/* Intestazione della tabella */}
+   
     <View style={styles.headerRow}>
       <Text style={[styles.headerText, styles.nomeColumn]}>Giocatore</Text>
       <Text style={[styles.headerText, styles.numeroColumn]}>Numero</Text>
       <Text style={[styles.headerText, styles.annoColumn]}>Anno</Text>
     </View>
   
-    {/* Corpo della tabella */}
     <FlatList
       data={magliette}
       keyExtractor={(item) => item.id.toString()}
@@ -94,15 +86,15 @@ const styles = StyleSheet.create({
     fontSize:"medium"
   },
   nomeColumn: {
-    flex: 0.5, // 50% dello spazio
+    flex: 0.5,
     paddingHorizontal: 8,
   },
   numeroColumn: {
-    flex: 0.25, // 25% dello spazio
+    flex: 0.25, 
     paddingHorizontal: 8,
   },
   annoColumn: {
-    flex: 0.25, // 25% dello spazio
+    flex: 0.25, 
     paddingHorizontal: 8,
   },
 });
