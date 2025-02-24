@@ -1,7 +1,7 @@
 
 
-
-    const magliette=[
+{
+    "magliette":[
         {
             "id": 1,
             "nome": "Paolo",
@@ -58,9 +58,9 @@
             "numero_maglia": 5,
             "anno_utilizzo": 1987
         }
-    ]
+    ],
 
-    const scarpe=[
+    "scarpe":[
         {
             "id": 1,
             "brand": "Adidas",
@@ -101,9 +101,9 @@
             "giocatore_milan": "Alessandro Nesta"
         }
         
-    ]
+    ],
 
-    const accessori =[
+    "accessori":[
         {
         "id": 1,
         "tipo": "Sciarpa",
@@ -141,3 +141,4 @@
         "descrizione": "Tazza commemorativa tripletta 1993-94"
         }
     ]
+}

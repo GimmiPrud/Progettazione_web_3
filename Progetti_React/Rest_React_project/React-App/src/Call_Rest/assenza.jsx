@@ -36,10 +36,10 @@ const Assenza = () => {
         </thead>
         {users.map((user) => (
           //<li key={user.id}>{user.persona} - {user.tipo} - {user.giorno}</li>
-          <tr key={user.id}>
+          <tr key={user.id} style={user.tipo === "Malattia" ? {backgroundColor: "red"} : {}}>
             <td>{user.persona}</td>
             <td>{user.tipo}</td>
-            <td>{user.giorno}</td>
+            <td>{user.giorno}</td>  
           </tr>
         ))}
         </table>
