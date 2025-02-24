@@ -1,0 +1,57 @@
+/* :root {
+  background-image: url('https://images.unsplash.com/photo-1495576775051-8af0d10f19b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE1fHxvZmZpY2V8ZW58MHx8MHx8fDA%3D');
+  background-repeat: no-repeat;
+  background-attachment:scroll;  
+  background-size:cover;
+} */
+
+body {
+  backface-visibility: hidden;
+  background-image: url('https://images.unsplash.com/photo-1495576775051-8af0d10f19b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE1fHxvZmZpY2V8ZW58MHx8MHx8fDA%3D');
+  background-repeat: no-repeat;
+  background-attachment:scroll;  
+  background-size:cover;
+}
+
+/*
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}*/
+

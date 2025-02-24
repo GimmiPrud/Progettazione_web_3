@@ -1,0 +1,152 @@
+
+.navbar {
+  padding: 5px;
+  font-family: monospace;
+  background-color: #484e51;
+  font-size:x-large;
+  margin: 50px 30pc 20px;
+  text-align: center;
+  border-radius: 30pc;
+  font-weight: 500;
+}
+
+.navbar ul{
+  padding: 10px 30px;
+  border-radius: 30px;
+}
+
+.navbar ul li{
+  display: inline-block;
+  padding: 6px 10px;
+  margin: 0 20px;
+}
+
+
+button{
+  background-color: lightgray;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  width: 10pc;
+  transition: all 0.5s;
+  cursor: pointer;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+  font-size: medium;
+}
+
+button{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+button:active{
+  transform: translate(8px);
+}
+
+button:after{
+  content: '🔎';
+  position: absolute;
+  opacity: 0;  
+  top: 10px;
+  right: 2px;
+  transition: 0.5s;
+}
+
+button:hover{
+  padding-right: 20px;
+  padding-left:8px;
+}
+
+button:hover:after {
+  opacity: 1;
+  right: 8px;
+}
+
+.img_c{
+  height: 26pc;
+  right: 10px;
+  background-size: contain;
+  display:inline-flex;
+}
+
+/*----------------------------*/
+
+body {
+  background: #f2f4f8;
+  display: flex;
+  font-family: "Open Sans";
+}
+.container {
+  display: flex;
+}
+
+.card {
+  width: 330px;
+  height: 500px;
+  border-radius: 40px;
+  transition: all 0.2s ease-out;
+  margin-left: 5pc;
+  background-color: gainsboro;
+
+}
+
+.card:hover {
+  transform: translateY(-25px) scale(1.005) translateZ(0);
+}
+
+.img_card{
+  background-size: 15px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  height: 380px;
+  width: 330px;
+}
+
+/* spacing */
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  align-items: center;
+  margin:0 30pc;
+  background-color: #484e51;
+}
+
+thead th:nth-child(1) {
+  width: 20%;
+  table-layout: fixed;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+  border: 2px solid ;
+  table-layout: fixed;
+}
+
+thead th:nth-child(3) {
+  width: 30%;
+  border: 2px solid ;
+  table-layout: fixed;
+}
+
+thead th:nth-child(4) {
+  width: 30%;
+  border: 2px solid ;
+  table-layout: fixed;
+}
+
+thead th:nth-child(5) {
+  width: 43%;
+  border: 2px solid ;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 13px;
+  border: 2px solid ;
+  table-layout: fixed;
+}
+
+
+
