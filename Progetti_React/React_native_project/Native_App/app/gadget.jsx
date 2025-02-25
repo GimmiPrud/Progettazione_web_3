@@ -32,7 +32,7 @@ const Accessori = () => {
       </View>
 
       <FlatList
-        data={scarpe}
+        data={accessori}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.dataRow}>
